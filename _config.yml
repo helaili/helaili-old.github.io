@@ -2,7 +2,7 @@
 title: Here's what I'm studying on and hopefully learning
 email: helaili@github.com
 description: A place on the web to jot down the things I'm learning
-baseurl: "/" # the subpath of your site, e.g. /blog/
+baseurl: "/blog/" # the subpath of your site, e.g. /blog/
 url: "http://helaili.github.io/" # the base hostname & protocol for your site
 twitter_username: AlainHelaili
 github_username:  helaili
