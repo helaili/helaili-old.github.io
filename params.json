@@ -1,1 +1,7 @@
-{"name":"Alain's blog","tagline":"Things I Learned","body":"### Welcome here.\r\nI'm just doing this to keep track of what I've learned. Hopefully it can be useful for you too.\r\n\r\n","google":"UA-60807433-2","note":"Don't delete this file! It's used internally to help with page regeneration."}
+{
+  "name":"Alain's blog",
+  "tagline":"Things I Learned",
+  "body":"### Welcome here.\r\nI'm just doing this to keep track of what I've learned. Hopefully it can be useful for you too.\r\n\r\n",
+  "google":"UA-60807433-2",
+  "note":"Don't delete this file! It's used internally to help with page regeneration."
+}
