@@ -11,7 +11,7 @@ Proposing a system allowing users to pull files from a local server. This is use
 
 ## Disclaimer
 
-This a purely experimental! I'm not even sure it would work in real life, and there are problably a ton of workflows which could end up being broken
+This is purely experimental! I'm not even sure it would work in real life, and there are problably a ton of workflows which could end up being broken
 
 ## The solution ##
 
@@ -41,10 +41,10 @@ chmod u+x doSync.sh
 
  Now we want make sure this file doesn't get pushed to the repo, so make sure you add it to `.gitignore` and commit/push the file
 
- ```
- echo "doSync.sh" >> .gitignore
- git commit -m "ignore doSync" .gitignore
- git push origin
+```
+echo "doSync.sh" >> .gitignore
+git commit -m "ignore doSync" .gitignore
+git push origin
 ```
 
 Now create a new repo on *octodemoproxy.com*. That would be `https://octodemoproxy.com/OctoCheese/Calculator` or whatever else you want. It's **not a clone**. You obviously need push access on this repo, and you actually be the only one being allowed to push there.
@@ -106,6 +106,7 @@ The repo on *octodemoproxy.com* should match  *octodemo.com*
 Now you just need to schedule the execution of this `doSync.sh` script every so often.
 
 ####On the developer machine####
+
 We are cloning the repo from the proxy and changing the push remote to octodemo.
 
 ```
