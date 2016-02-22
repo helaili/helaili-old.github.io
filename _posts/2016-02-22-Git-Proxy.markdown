@@ -2,13 +2,13 @@
 layout: post
 title:  "Git Proxy"
 date:   2016-02-22 11:32:00
-categories: Git 
+categories: Git
 comments: True
 ---
 
 ## Goal
 
-Proposing a system allowing users to pull files from a local server. This is useful when the main server is geographically distant and connection slow. 
+Proposing a system allowing users to pull files from a local server. This is useful when the main server is geographically distant and connection slow.
 
 ## Disclaimer
 
@@ -17,7 +17,7 @@ This a purely experimental! I'm not even sure it would work in real life, and th
 ## The solution ##
 
 - *Octodemo* is the central remote server, and the repo we want to make available is `https://octodemo.com/OctoCheese/Calculator`
-- We will use another Git server or GitHub Enteprise instance, on the local site, say *octodemoproxy.com*. 
+- We will use another Git server or GitHub Enteprise instance, on the local site, say *octodemoproxy.com*.
 - We need a third machine, somewhere (remote or local). Let's call it *octodemosync*.
 
 #### On *octodemosync* ####
@@ -26,41 +26,48 @@ This a purely experimental! I'm not even sure it would work in real life, and th
 git clone https://octodemo.com/OctoCheese/Calculator.git
 cd Calculator
 ```
- We'll create a file `doSync.sh` in this directory with the following content : 
- 
- ```
+ We'll create a file `doSync.sh` in this directory with the following content :
+
+```
 for remote in `git branch -r | grep -v \>`; do git branch --track ${remote#origin/} $remote; done
 for branch in `git branch -r | grep -v \>`; do git checkout ${branch#origin/}; git pull --rebase; done
 git push --all --force
- ```
+```
 
-Make sure you make this file exectuable 
+Make sure you make this file exectuable
+
 ```
 chmod u+x doSync.sh
 ```
- 
- Now we want make sure this file doesn't get pushed to the repo, so make sure you add it to `.gitignore` and commit/push the file 
+
+ Now we want make sure this file doesn't get pushed to the repo, so make sure you add it to `.gitignore` and commit/push the file
+
  ```
  echo "doSync.sh" >> .gitignore
  git commit -m "ignore doSync" .gitignore
  git push origin
 ```
 
-Now create a new repo on *octodemoproxy.com*. That would be `https://octodemoproxy.com/OctoCheese/Calculator` or whatever else you want. It's **not a clone**. You obviously need push access on this repo, and you actually be the only one being allowed to push there. 
+Now create a new repo on *octodemoproxy.com*. That would be `https://octodemoproxy.com/OctoCheese/Calculator` or whatever else you want. It's **not a clone**. You obviously need push access on this repo, and you actually be the only one being allowed to push there.
 
-Still on *octodemosync* 
+Still on *octodemosync*
+
 ```
 git remote set-url --push origin https://octodemoproxy.com/OctoCheese/Calculator.git
 ```
-Now let's check where we are 
+
+Now let's check where we are
+
 ```
 > git remote -v
 origin	https://octodemo.com/OctoCheese/Calculator.git (fetch)
 origin	https://octodemoproxy.com/OctoCheese/Calculator.git (push)
-> git branch 
+> git branch
 * master
 ```
+
 Now run `doSynch.sh`
+
 ```
 >./doSync.sh
 Branch bug-fix set up to track remote branch bug-fix from origin.
@@ -86,7 +93,9 @@ To https://octoalaindemo/SoftwareDepartment/Calculator.git
  * [new branch]      deploy -> deploy
  * [new branch]      master -> master
 ```
-Let's check again what we have 
+
+Let's check again what we have
+
 ```
 git branch
   bug-fix
@@ -95,10 +104,10 @@ git branch
 ```
 
 The repo on *octodemoproxy.com* should match  *octodemo.com*
-Now you just need to schedule the execution of this `doSync.sh` script every so often. 
+Now you just need to schedule the execution of this `doSync.sh` script every so often.
 
 ####On the developer machine####
-We are cloning the repo from the proxy and changing the push remote to octodemo. 
+We are cloning the repo from the proxy and changing the push remote to octodemo.
 
 ```
 git clone https://octodemoproxy.com/OctoCheese/Calculator.git
@@ -106,4 +115,4 @@ cd Calculator
 git remote set-url --push origin https://octodemo.com/OctoCheese/Calculator.git
 ```
 
-The user can now push and pull normally, and everything should be transparent provided `doSync.sh`runs often enough. 
+The user can now push and pull normally, and everything should be transparent provided `doSync.sh`runs often enough.
